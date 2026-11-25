@@ -1,0 +1,12 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Autorisation TikTok</title><style>body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;background:#0D0F14;color:#eee;max-width:720px;margin:0 auto;padding:32px 16px;line-height:1.6}h1,h2{color:#FF5E1F}a{color:#FF8A5B}code,.box{background:#1E212A;border-radius:8px;padding:12px;display:block;word-break:break-all;font-family:monospace}button{background:#FF5E1F;color:#fff;border:0;border-radius:20px;padding:10px 20px;font-weight:700;margin-top:12px;cursor:pointer}</style></head><body>
+<h1>Autorisation TikTok</h1>
+<div id="out">Lecture…</div>
+<script>
+const p=new URLSearchParams(location.search), o=document.getElementById('out');
+if(p.get('error')){o.innerHTML='<p>Erreur : '+(p.get('error_description')||p.get('error'))+'</p>';}
+else if(p.get('code')){const t=JSON.stringify({code:p.get('code'),state:p.get('state'),scopes:p.get('scopes')});
+o.innerHTML='<p>Autorisation réussie. Copie ce bloc et colle-le dans le fichier indiqué par Claude (ne le partage nulle part ailleurs ; il expire en quelques minutes) :</p><span class="box" id="c"></span><button id="b">Copier</button>';
+document.getElementById('c').textContent=t;
+document.getElementById('b').onclick=()=>{navigator.clipboard.writeText(t);document.getElementById('b').textContent='Copié ✓';};}
+else{o.textContent='Aucun code reçu.';}
+</script></body></html>
